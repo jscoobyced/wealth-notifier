@@ -9,13 +9,20 @@
   "scripts": {
     "build": "tsc",
     "start": "node ./bin/index.js",
-    "dev": "ts-node ./src/index.ts"
+    "dev": "ts-node ./src/index.ts",
+    "test": "ts-node ./src/index.ts",
+    "lint": "eslint --fix ./src"
   },
   "dependencies": {
     "@types/node": "^20.11.7",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin": "^1.5.4",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
     "ts-node": "^10.9.2"
   }
 }
