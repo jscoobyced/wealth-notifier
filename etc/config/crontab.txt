@@ -1,0 +1,1 @@
+* * * * *   yarn --silent --cwd /opt/wealth-notifier/ start
