@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "node -r ts-node/register --env-file=.env.local ./src/index.ts",
-    "test": "node -r ts-node/register --env-file=.env.local ./src/index.ts",
+    "test": "node -r ts-node/register ./src/index.ts",
     "lint": "eslint --fix ./src"
   },
   "dependencies": {
