@@ -15,7 +15,7 @@ export const run = async () => {
     ratio,
     currency: 'XAUTHB',
   }
-  let thaiBaht = Intl.NumberFormat('en-TH', {
+  const thaiBaht = Intl.NumberFormat('en-TH', {
     style: 'currency',
     currency: 'THB',
   })

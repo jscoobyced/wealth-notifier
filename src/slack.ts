@@ -44,7 +44,7 @@ export default class SlackService {
         body: JSON.stringify(data),
       })
 
-      const result = await response.text()
+      await response.text()
     } catch (error) {
       console.error('Error:', error)
     }
