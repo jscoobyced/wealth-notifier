@@ -44,6 +44,8 @@ spec:
         env:
         - name: TZ
           value: Asia/Bangkok
+        - name: NODE_ENV
+          value: production
         - name: SLACK_WEBHOOK
           valueFrom:
             secretKeyRef:

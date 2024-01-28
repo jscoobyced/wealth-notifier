@@ -1,6 +1,14 @@
-export const run = () => {
-  const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK
+import { SlackMessageWithHeader, UpwardsTrend } from './model'
+import SlackService from './slack'
 
-  const NODE_ENV = process.env.NODE_ENV || 'development'
-  console.log(SLACK_WEBHOOK, NODE_ENV)
+export const run = async () => {
+  const slackService = new SlackService()
+  const message: SlackMessageWithHeader = {
+    header: {
+      icon: UpwardsTrend,
+      messsage: 'Gold Price is up!',
+    },
+    content: 'The price of gold is now: 33,100 THB. Down from 34,100 THB.',
+  }
+  await slackService.sendMessage(message)
 }

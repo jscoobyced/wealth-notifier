@@ -1,5 +1,9 @@
 import dotenv from 'dotenv'
 import * as Main from './main'
 
-dotenv.config()
-Main.run()
+(async () => {
+  dotenv.config()
+  await Main.run()
+})().catch(e => {
+  console.error(e)
+})
