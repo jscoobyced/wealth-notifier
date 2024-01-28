@@ -1,7 +1,8 @@
 import { SlackMessageWithHeader } from './model'
 
 export default class SlackService {
-  private SLACK_WEBHOOK = process.env.SLACK_WEBHOOK
+  private SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || false
+
   sendMessage = async (message: SlackMessageWithHeader) => {
     if (!this.SLACK_WEBHOOK) return
     try {
@@ -34,7 +35,8 @@ export default class SlackService {
         ],
       }
 
-      const response = await fetch(this.SLACK_WEBHOOK, {
+      const url = this.SLACK_WEBHOOK.toString()
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +45,6 @@ export default class SlackService {
       })
 
       const result = await response.text()
-      console.log('Success:', result)
     } catch (error) {
       console.error('Error:', error)
     }
