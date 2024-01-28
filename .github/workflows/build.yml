@@ -33,7 +33,7 @@ jobs:
       - name: Building app
         run: yarn --cwd src --frozen-lockfile
 
-      - name: Components testing
+      - name: Testing
         run: yarn --cwd src test
 
   lint:

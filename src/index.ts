@@ -1,7 +1,5 @@
-console.log('Tadaaa!')
+import dotenv from 'dotenv'
+import * as Main from './main'
 
-console.log('Tadaaa!')
-
-console.log('Tadaaa!')
-
-console.log('Tadaaa!')
+dotenv.config()
+Main.run()

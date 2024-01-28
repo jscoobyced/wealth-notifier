@@ -8,13 +8,13 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "node ./bin/index.js",
-    "dev": "ts-node ./src/index.ts",
-    "test": "ts-node ./src/index.ts",
+    "dev": "node -r ts-node/register --env-file=.env.local ./src/index.ts",
+    "test": "node -r ts-node/register --env-file=.env.local ./src/index.ts",
     "lint": "eslint --fix ./src"
   },
   "dependencies": {
     "@types/node": "^20.11.7",
+    "dotenv": "^16.4.1",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
