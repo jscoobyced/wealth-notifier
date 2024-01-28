@@ -51,6 +51,16 @@ spec:
             secretKeyRef:
               name: wl-secret
               key: slack_webhook
+        - name: MARKETDATA_API_URL
+          valueFrom:
+            secretKeyRef:
+              name: wl-secret
+              key: market_data_api_url
+        - name: MARKETDATA_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: wl-secret
+              key: market_data_api_key
         volumeMounts:
         - name: wealth-notifier-persistent-storage
           mountPath: /data
