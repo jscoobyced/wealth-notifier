@@ -7,7 +7,7 @@ ENV TZ=Asia/Bangkok
 
 ENV APPDIR=/opt/wealth-notifier
 # Run the application every minute
-RUN echo "0 22 * * *   cd ${APPDIR}/bin && node index.js 2>&1 >> ${APPDIR}/application.log" | tee -a /etc/crontabs/root
+RUN echo "0 14,22 * * *   cd ${APPDIR}/bin && node index.js 2>&1 >> ${APPDIR}/application.log" | tee -a /etc/crontabs/root
 # Clear the logs once a month
 RUN echo "0 0 1 * *   echo -n '' > ${APPDIR}/application.log" | tee -a /etc/crontabs/root
 
