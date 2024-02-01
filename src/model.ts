@@ -1,9 +1,14 @@
+export type SlackContent = {
+  icon?: string
+  text: string
+}
+
 export type SlackMessageWithHeader = {
   header: {
     icon: string
     messsage: string
   }
-  content: string
+  content: SlackContent[]
 }
 
 export type MarketDataRequest = {

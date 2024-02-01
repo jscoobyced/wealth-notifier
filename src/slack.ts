@@ -6,6 +6,22 @@ export default class SlackService {
   sendMessage = async (message: SlackMessageWithHeader) => {
     if (!this.SLACK_WEBHOOK) return
     try {
+      const blockElements: any[] = []
+      message.content.forEach((content) => {
+        blockElements.push({
+          type: 'emoji',
+          name: content.icon,
+        })
+        blockElements.push({
+          type: 'text',
+          text: content.text,
+        })
+        blockElements.push({
+          type: 'text',
+          text: `\n`,
+        })
+      })
+      const elements = blockElements.slice(0, blockElements.length - 1)
       const data = {
         blocks: [
           {
@@ -23,12 +39,7 @@ export default class SlackService {
             elements: [
               {
                 type: 'rich_text_section',
-                elements: [
-                  {
-                    type: 'text',
-                    text: message.content,
-                  },
-                ],
+                elements: elements,
               },
             ],
           },
