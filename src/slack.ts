@@ -1,4 +1,4 @@
-import { SlackMessageWithHeader } from './model'
+import { SlackMessageWithHeader, SlackRichTextElement } from './model'
 
 export default class SlackService {
   private SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || false
@@ -6,7 +6,7 @@ export default class SlackService {
   sendMessage = async (message: SlackMessageWithHeader) => {
     if (!this.SLACK_WEBHOOK) return
     try {
-      const blockElements: any[] = []
+      const blockElements: SlackRichTextElement[] = []
       message.content.forEach((content) => {
         blockElements.push({
           type: 'emoji',

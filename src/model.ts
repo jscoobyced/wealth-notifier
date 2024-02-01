@@ -3,6 +3,12 @@ export type SlackContent = {
   text: string
 }
 
+export type SlackRichTextElement = {
+  type: string
+  name?: string
+  text?: string
+}
+
 export type SlackMessageWithHeader = {
   header: {
     icon: string
