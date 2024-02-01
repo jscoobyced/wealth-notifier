@@ -60,6 +60,10 @@ const checkMarketData = async () => {
   const jpyPrice = await checkMarketDataPrice(request)
   message.push(jpyPrice)
 
+  request.currency = 'CNYTHB'
+  const cnyPrice = await checkMarketDataPrice(request)
+  message.push(cnyPrice)
+
   return message
 }
 
