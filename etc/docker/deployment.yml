@@ -69,7 +69,7 @@ spec:
               key: ylg_bullion_url
         volumeMounts:
         - name: wealth-notifier-persistent-storage
-          mountPath: /opt
+          mountPath: /data
       volumes:
       - name: wealth-notifier-persistent-storage
         persistentVolumeClaim:
