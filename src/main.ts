@@ -9,7 +9,7 @@ import {
   UpwardsTrend,
 } from './model'
 import SlackService from './slack'
-import YlgBullion from './ylsbullion'
+// import YlgBullion from './ylsbullion'
 
 export const run = async () => {
   const mdMessage = await checkMarketData()
@@ -34,6 +34,7 @@ const checkAurora = async () => {
   return []
 }
 
+/*
 const checkYlgBullion = async () => {
   const ylgBullion = new YlgBullion()
   const message = []
@@ -44,6 +45,7 @@ const checkYlgBullion = async () => {
 
   return message
 }
+*/
 
 const checkMarketData = async () => {
   const ratio = OUNCE_TO_GRAM / GRAM_PER_BAHT
