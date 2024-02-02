@@ -5,6 +5,7 @@ export default class YlgBullion {
   private YLGBULLION_URL = process.env.YLGBULLION_URL || false
 
   fetchCurrentPrice = async (gold: string) => {
+
     if (!this.YLGBULLION_URL) return false
 
     const url = this.YLGBULLION_URL as string

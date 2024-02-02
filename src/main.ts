@@ -1,3 +1,4 @@
+import Aurora from './aurora'
 import MarketDataService from './marketdata'
 import {
   GRAM_PER_BAHT,
@@ -12,8 +13,8 @@ import YlgBullion from './ylsbullion'
 
 export const run = async () => {
   const mdMessage = await checkMarketData()
-  const ylgMessage = await checkYlgBullion()
-  const slackContent = mdMessage.concat(ylgMessage)
+  const auroraMessages = await checkAurora()
+  const slackContent = mdMessage.concat(auroraMessages)
 
   const slackService = new SlackService()
   const message: SlackMessageWithHeader = {
@@ -24,6 +25,13 @@ export const run = async () => {
     content: slackContent,
   }
   await slackService.sendMessage(message)
+}
+
+const checkAurora = async () => {
+  const aurora = new Aurora()
+  const auroraMessages = await aurora.fetchCurrentPrice()
+  if (auroraMessages) return auroraMessages
+  return []
 }
 
 const checkYlgBullion = async () => {
