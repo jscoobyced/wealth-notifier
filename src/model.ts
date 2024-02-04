@@ -1,4 +1,4 @@
-export type SlackContent = {
+export type IconWithTextContent = {
   icon?: string
   text: string
 }
@@ -14,7 +14,7 @@ export type SlackMessageWithHeader = {
     icon: string
     messsage: string
   }
-  content: SlackContent[]
+  content: IconWithTextContent[]
 }
 
 export type MarketDataRequest = {
@@ -35,6 +35,21 @@ export type MarketDataResponse = {
   ]
   requested_time: string
   timestamp: number
+}
+
+export type CurrencyData = {
+  selling: number
+  buying: number
+  currency: string
+}
+
+export const Icons = {
+  gold: {
+    slack: 'part_alternation_mark',
+  },
+  coin: {
+    slack: 'coin',
+  },
 }
 
 export const UpwardsTrend = ':chart_with_upwards_trend:'

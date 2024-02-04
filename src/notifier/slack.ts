@@ -1,4 +1,4 @@
-import { SlackMessageWithHeader, SlackRichTextElement } from './model'
+import { SlackMessageWithHeader, SlackRichTextElement } from '../model'
 
 export default class SlackService {
   private SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || false

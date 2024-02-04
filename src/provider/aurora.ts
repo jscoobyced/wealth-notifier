@@ -1,5 +1,5 @@
 import { parse } from 'node-html-parser'
-import { SlackContent } from './model'
+import { CurrencyData } from '../model'
 
 export default class Aurora {
   private AURORA_URL = process.env.AURORA_URL || false
@@ -13,13 +13,15 @@ export default class Aurora {
     const html = await response.text()
     const root = parse(html)
     const values = root.querySelectorAll('h3.g-price')
-    const keys = ['selling', 'buying']
-    const slackContent: SlackContent[] = values.map((value, index) => {
-      return {
-        icon: 'part_alternation_mark',
-        text: `The Aurora ${keys[index]} gold price is THB ${value.innerText}.`,
-      }
-    })
-    return slackContent
+    const result: CurrencyData = {
+      selling: 0,
+      buying: 0,
+      currency: 'gold',
+    }
+    if (values && values.length === 2) {
+      result.selling = +values[0].innerText.replaceAll(',', '')
+      result.buying = +values[1].innerText.replaceAll(',', '')
+    }
+    return result
   }
 }

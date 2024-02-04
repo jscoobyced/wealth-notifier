@@ -1,5 +1,5 @@
 import { parse } from 'node-html-parser'
-import { SlackContent } from './model'
+import { IconWithTextContent } from '../model'
 
 export default class YlgBullion {
   private YLGBULLION_URL = process.env.YLGBULLION_URL || false
@@ -14,7 +14,7 @@ export default class YlgBullion {
     const html = await response.text()
     const root = parse(html)
     const value = root.querySelector(`[data-value="bar${gold}_tout"]`)?.text
-    const slackContent:SlackContent = {
+    const slackContent:IconWithTextContent = {
       icon: 'part_alternation_mark',
       text: `The YLG Bullion ${gold}% gold price is THB ${value}.`
     }

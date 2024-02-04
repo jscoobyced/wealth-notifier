@@ -1,51 +1,39 @@
-import Aurora from './aurora'
-import MarketDataService from './marketdata'
+import Aurora from './provider/aurora'
+import MarketDataService from './provider/marketdata'
 import {
   GRAM_PER_BAHT,
   MarketDataRequest,
   OUNCE_TO_GRAM,
-  SlackContent,
-  SlackMessageWithHeader,
-  UpwardsTrend,
+  Icons,
+  CurrencyData,
 } from './model'
-import SlackService from './slack'
-// import YlgBullion from './ylsbullion'
+import SlackService from './notifier/slack'
+import SlackMessageBuilder from './slackbuilder'
 
 export const run = async () => {
-  const mdMessage = await checkMarketData()
-  const auroraMessages = await checkAurora()
-  const slackContent = mdMessage.concat(auroraMessages)
+  const slackBuilder = new SlackMessageBuilder()
+
+  const mdMessages = await checkMarketData()
+  if (mdMessages) {
+    mdMessages.forEach((message) => {
+      slackBuilder.addCurrencyData(message, Icons.coin.slack, 'MarketData')
+    })
+  }
+
+  const auroraMessage = await checkAurora()
+  if (auroraMessage) {
+    slackBuilder.addCurrencyData(auroraMessage, Icons.gold.slack, 'Aurora')
+  }
 
   const slackService = new SlackService()
-  const message: SlackMessageWithHeader = {
-    header: {
-      icon: UpwardsTrend,
-      messsage: `Price update`,
-    },
-    content: slackContent,
-  }
-  await slackService.sendMessage(message)
+  await slackService.sendMessage(slackBuilder.build())
 }
 
 const checkAurora = async () => {
   const aurora = new Aurora()
-  const auroraMessages = await aurora.fetchCurrentPrice()
-  if (auroraMessages) return auroraMessages
-  return []
+  const auroraMessage = await aurora.fetchCurrentPrice()
+  return auroraMessage
 }
-
-/*
-const checkYlgBullion = async () => {
-  const ylgBullion = new YlgBullion()
-  const message = []
-  const gold96 = await ylgBullion.fetchCurrentPrice('96')
-  if (gold96) message.push(gold96)
-  const gold99 = await ylgBullion.fetchCurrentPrice('99')
-  if (gold99) message.push(gold99)
-
-  return message
-}
-*/
 
 const checkMarketData = async () => {
   const ratio = OUNCE_TO_GRAM / GRAM_PER_BAHT
@@ -53,26 +41,26 @@ const checkMarketData = async () => {
     ratio,
     currency: 'XAUTHB',
   }
-  const message = []
+  const message: CurrencyData[] = []
   const goldPrice = await checkMarketDataPrice(request)
-  message.push(goldPrice)
+  if (goldPrice) message.push(goldPrice)
 
   request.ratio = 1
   request.currency = 'EURTHB'
   const euroPrice = await checkMarketDataPrice(request)
-  message.push(euroPrice)
+  if (euroPrice) message.push(euroPrice)
 
   request.currency = 'USDTHB'
   const usdPrice = await checkMarketDataPrice(request)
-  message.push(usdPrice)
+  if (usdPrice) message.push(usdPrice)
 
   request.currency = 'JPYTHB'
   const jpyPrice = await checkMarketDataPrice(request)
-  message.push(jpyPrice)
+  if (jpyPrice) message.push(jpyPrice)
 
   request.currency = 'CNYTHB'
   const cnyPrice = await checkMarketDataPrice(request)
-  message.push(cnyPrice)
+  if (cnyPrice) message.push(cnyPrice)
 
   return message
 }
@@ -80,15 +68,6 @@ const checkMarketData = async () => {
 const checkMarketDataPrice = async (request: MarketDataRequest) => {
   const marketDataService = new MarketDataService()
 
-  const thaiBaht = Intl.NumberFormat('en-TH', {
-    style: 'currency',
-    currency: 'THB',
-  })
   const result = await marketDataService.fetchCurrentPrice(request)
-  const formattedResult = thaiBaht.format(result)
-  const slackContent: SlackContent = {
-    icon: 'coin',
-    text: `The MarquetData price of ${request.currency} is now: ${formattedResult}.`,
-  }
-  return slackContent
+  return result
 }
