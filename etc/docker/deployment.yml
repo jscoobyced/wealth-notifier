@@ -50,7 +50,7 @@ spec:
             - name: STORAGE_PATH
               value: /data
             - name: CURRENCY_THRESHOLD
-              value: 5
+              value: '5'
             - name: SLACK_WEBHOOK
               valueFrom:
                 secretKeyRef:
