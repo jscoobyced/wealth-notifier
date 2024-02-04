@@ -12,9 +12,7 @@ export default class SlackMessageBuilder {
     currency: 'THB',
   })
 
-  addCurrencyData = (
-    currencyData: CurrencyData
-  ) => {
+  addCurrencyData = (currencyData: CurrencyData) => {
     this.slackContent.push({
       icon: currencyData.icon.slack,
       text: `The ${currencyData.provider} selling price for ${
@@ -24,13 +22,16 @@ export default class SlackMessageBuilder {
   }
 
   build = () => {
-    const message: SlackMessageWithHeader = {
-      header: {
-        icon: UpwardsTrend,
-        messsage: `Price update`,
-      },
-      content: this.slackContent,
+    if (this.slackContent.length > 0) {
+      const message: SlackMessageWithHeader = {
+        header: {
+          icon: UpwardsTrend,
+          messsage: `Price update`,
+        },
+        content: this.slackContent,
+      }
+      return message
     }
-    return message
+    return false
   }
 }
