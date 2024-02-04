@@ -41,15 +41,25 @@ export type CurrencyData = {
   selling: number
   buying: number
   currency: string
+  provider: string
+  icon: IconProvider
+}
+
+export type IconProvider = {
+  slack?: string
+}
+
+export const GoldIcon: IconProvider = {
+  slack: 'part_alternation_mark'
+}
+
+export const CoinIcon: IconProvider = {
+  slack: 'coin'
 }
 
 export const Icons = {
-  gold: {
-    slack: 'part_alternation_mark',
-  },
-  coin: {
-    slack: 'coin',
-  },
+  gold: GoldIcon,
+  coin: CoinIcon,
 }
 
 export const UpwardsTrend = ':chart_with_upwards_trend:'

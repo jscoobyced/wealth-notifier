@@ -1,4 +1,4 @@
-import { CurrencyData, MarketDataRequest, MarketDataResponse } from '../model'
+import { CurrencyData, Icons, MarketDataRequest, MarketDataResponse } from '../model'
 
 export default class MarketDataService {
   private MARKETDATA_API_URL = process.env.MARKETDATA_API_URL || false
@@ -22,6 +22,8 @@ export default class MarketDataService {
       selling: data.quotes[0].ask,
       buying: data.quotes[0].bid,
       currency: request.currency,
+      provider: 'MarketData',
+      icon: Icons.coin
     }
     return result
   }

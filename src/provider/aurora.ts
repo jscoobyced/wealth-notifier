@@ -1,5 +1,5 @@
 import { parse } from 'node-html-parser'
-import { CurrencyData } from '../model'
+import { CurrencyData, Icons } from '../model'
 
 export default class Aurora {
   private AURORA_URL = process.env.AURORA_URL || false
@@ -17,6 +17,8 @@ export default class Aurora {
       selling: 0,
       buying: 0,
       currency: 'gold',
+      provider: 'Aurora',
+      icon: Icons.gold
     }
     if (values && values.length === 2) {
       result.selling = +values[0].innerText.replaceAll(',', '')

@@ -3,7 +3,7 @@ import {
   IconWithTextContent,
   SlackMessageWithHeader,
   UpwardsTrend,
-} from './model'
+} from '../model'
 
 export default class SlackMessageBuilder {
   private slackContent: IconWithTextContent[] = []
@@ -13,13 +13,11 @@ export default class SlackMessageBuilder {
   })
 
   addCurrencyData = (
-    currencyData: CurrencyData,
-    icon: string,
-    brand: string
+    currencyData: CurrencyData
   ) => {
     this.slackContent.push({
-      icon,
-      text: `The ${brand} selling price for ${
+      icon: currencyData.icon.slack,
+      text: `The ${currencyData.provider} selling price for ${
         currencyData.currency
       } is ${this.thaiBaht.format(currencyData.selling)}.`,
     })
