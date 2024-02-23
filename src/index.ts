@@ -8,6 +8,10 @@ import express, { Express, Request, Response } from 'express'
   server.get('/', (request: Request, response: Response) => {
     response.json({ result: request.statusCode })
   })
+
+  server.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+  });
 })().catch((e) => {
   console.error(e)
 })
