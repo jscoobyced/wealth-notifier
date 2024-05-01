@@ -1,11 +1,11 @@
 import { parse } from 'node-html-parser'
-import { IconWithTextContent } from '../model'
+import { CurrencyData, Icons } from '../model'
 
 export default class YlgBullion {
   private YLGBULLION_URL = process.env.YLGBULLION_URL || false
+  private GOLD_99_THRESHOLD = process.env.GOLD_99_THRESHOLD || 0
 
-  fetchCurrentPrice = async (gold: string) => {
-
+  fetchCurrentPrice = async () => {
     if (!this.YLGBULLION_URL) return false
 
     const url = this.YLGBULLION_URL as string
@@ -13,11 +13,22 @@ export default class YlgBullion {
     if (response.status !== 200) return false
     const html = await response.text()
     const root = parse(html)
-    const value = root.querySelector(`[data-value="bar${gold}_tout"]`)?.text
-    const slackContent:IconWithTextContent = {
-      icon: 'part_alternation_mark',
-      text: `The YLG Bullion ${gold}% gold price is THB ${value}.`
+    const buying = root.querySelector(`[data-value="bar99_tin"]`)?.text
+    const selling = root.querySelector(`[data-value="bar99_tout"]`)?.text
+    const result: CurrencyData = {
+      selling: 0,
+      buying: 0,
+      currency: 'gold-ylg',
+      provider: 'Ylg Bullion',
+      icon: Icons.gold,
+      sellingThreshold: +this.GOLD_99_THRESHOLD
     }
-    return slackContent
+
+    if (buying && selling) {
+      result.selling = parseInt(selling.replace(',',''))
+      result.buying = parseInt(buying.replace(',',''))
+    }
+
+    return result
   }
 }

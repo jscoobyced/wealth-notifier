@@ -37,6 +37,7 @@ spec:
       containers:
         - image: jscdroiddev/wealth-notifier:latest
           name: wealth-notifier
+          imagePullPolicy: Always
           resources:
             requests:
               ephemeral-storage: "500Mi"
@@ -51,6 +52,8 @@ spec:
               value: /data
             - name: CURRENCY_THRESHOLD
               value: '3.93'
+            - name: GOLD_99_THRESHOLD
+              value: '40000'
             - name: SLACK_WEBHOOK
               valueFrom:
                 secretKeyRef:

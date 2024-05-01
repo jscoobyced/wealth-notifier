@@ -23,7 +23,8 @@ export default class MarketDataService {
       buying: data.quotes[0].bid,
       currency: request.currency,
       provider: 'MarketData',
-      icon: Icons.coin
+      icon: Icons.coin,
+      sellingThreshold: 0
     }
     return result
   }

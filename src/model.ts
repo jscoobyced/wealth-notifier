@@ -43,6 +43,7 @@ export type CurrencyData = {
   currency: string
   provider: string
   icon: IconProvider
+  sellingThreshold: number
 }
 
 export type IconProvider = {

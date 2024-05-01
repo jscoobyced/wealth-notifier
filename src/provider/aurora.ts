@@ -16,9 +16,10 @@ export default class Aurora {
     const result: CurrencyData = {
       selling: 0,
       buying: 0,
-      currency: 'gold',
+      currency: 'gold-aurora',
       provider: 'Aurora',
-      icon: Icons.gold
+      icon: Icons.gold,
+      sellingThreshold: 38000
     }
     if (values && values.length === 2) {
       result.selling = +values[0].innerText.replaceAll(',', '')

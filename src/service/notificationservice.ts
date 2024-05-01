@@ -7,11 +7,12 @@ export default class NotificationService {
   run = async (currencyData: CurrencyData[]) => {
     const slackBuilder = new SlackMessageBuilder()
 
-    currencyData.forEach(async (message) => {
+    for(const message of currencyData) {
       await this.checkCurrencyData(message, slackBuilder)
-    })
+    }
 
     const messages = slackBuilder.build()
+
     if (messages) {
       const slackService = new SlackService()
       await slackService.sendMessage(messages)
@@ -32,7 +33,7 @@ export default class NotificationService {
     const percent = (100 * (oldValue - currencyData.selling)) / oldValue
 
     const threshold = +(process.env.CURRENCY_THRESHOLD || 101)
-    if (percent >= threshold) {
+    if (percent >= threshold || currencyData.selling <= currencyData.sellingThreshold) {
       slackBuilder.addCurrencyData(currencyData)
       fileStorage.storeValue(path, currencyData.selling)
     }

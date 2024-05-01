@@ -6,20 +6,28 @@ import {
 } from '../model'
 import Aurora from '../provider/aurora'
 import MarketDataService from '../provider/marketdata'
+import YlgBullion from '../provider/ylsbullion'
 
 export default class CurrencyService {
   run = async () => {
     const messages: CurrencyData[] = []
+    /*
     const mdMessages = await this.checkMarketData()
     if (mdMessages) {
       mdMessages.forEach((message) => {
         messages.push(message)
       })
     }
+    */
 
     const auroraMessage = await this.checkAurora()
     if (auroraMessage) {
       messages.push(auroraMessage)
+    }
+
+    const ylgBullionMessage = await this.checkYlg()
+    if (ylgBullionMessage) {
+      messages.push(ylgBullionMessage)
     }
 
     return messages
@@ -29,6 +37,12 @@ export default class CurrencyService {
     const aurora = new Aurora()
     const auroraMessage = await aurora.fetchCurrentPrice()
     return auroraMessage
+  }
+
+  private checkYlg = async () => {
+    const ylgBullion = new YlgBullion()
+    const ylgBullionMessage = await ylgBullion.fetchCurrentPrice()
+    return ylgBullionMessage
   }
 
   private checkMarketData = async () => {
