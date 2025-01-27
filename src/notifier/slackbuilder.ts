@@ -21,6 +21,15 @@ export default class SlackMessageBuilder {
     })
   }
 
+  addProfitData = (goldData: CurrencyData, profit: number) => {
+    this.slackContent.push({
+      icon: goldData.icon.slack,
+      text: `The ${goldData.provider} profit for gold is ${this.thaiBaht.format(
+        profit
+      )}.`,
+    })
+  }
+
   build = () => {
     if (this.slackContent.length > 0) {
       const message: SlackMessageWithHeader = {

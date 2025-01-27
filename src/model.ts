@@ -51,16 +51,32 @@ export type IconProvider = {
 }
 
 export const GoldIcon: IconProvider = {
-  slack: 'part_alternation_mark'
+  slack: 'part_alternation_mark',
 }
 
 export const CoinIcon: IconProvider = {
-  slack: 'coin'
+  slack: 'coin',
 }
 
 export const Icons = {
   gold: GoldIcon,
   coin: CoinIcon,
+}
+
+export type YlgGoldData = {
+  bar96: {
+    tin: number
+    tout: number
+  }
+  bar99: {
+    tin: number
+    tout: number
+  }
+}
+
+export type PurchasedGoldData = {
+  pricePurchased: number
+  goldBahtPurchased: number
 }
 
 export const UpwardsTrend = ':chart_with_upwards_trend:'

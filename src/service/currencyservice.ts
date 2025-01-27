@@ -18,12 +18,13 @@ export default class CurrencyService {
         messages.push(message)
       })
     }
-    */
+
 
     const auroraMessage = await this.checkAurora()
     if (auroraMessage) {
       messages.push(auroraMessage)
     }
+    */
 
     const ylgBullionMessage = await this.checkYlg()
     if (ylgBullionMessage) {

@@ -51,9 +51,9 @@ spec:
             - name: STORAGE_PATH
               value: /data
             - name: CURRENCY_THRESHOLD
-              value: '3.93'
+              value: "3.93"
             - name: GOLD_99_THRESHOLD
-              value: '40000'
+              value: "40000"
             - name: SLACK_WEBHOOK
               valueFrom:
                 secretKeyRef:
@@ -70,10 +70,7 @@ spec:
                   name: wl-secret
                   key: market_data_api_key
             - name: YLGBULLION_URL
-              valueFrom:
-                secretKeyRef:
-                  name: wl-secret
-                  key: ylg_bullion_url
+              value: https://register.ylgbullion.co.th/api/price/gold
             - name: AURORA_URL
               valueFrom:
                 secretKeyRef:

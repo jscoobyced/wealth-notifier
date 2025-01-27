@@ -2,20 +2,32 @@ import { CurrencyData } from '../model'
 import SlackService from '../notifier/slack'
 import SlackMessageBuilder from '../notifier/slackbuilder'
 import FileStorage, { getSafePath } from '../storage/filestorage'
+import { calculatGoldProfit } from './profitCalculator'
 
 export default class NotificationService {
   run = async (currencyData: CurrencyData[]) => {
     const slackBuilder = new SlackMessageBuilder()
 
-    for(const message of currencyData) {
-      await this.checkCurrencyData(message, slackBuilder)
+    for (const message of currencyData) {
+      await this.checkGoldData(message, slackBuilder)
     }
 
     const messages = slackBuilder.build()
 
     if (messages) {
+      console.log(JSON.stringify(messages))
       const slackService = new SlackService()
       await slackService.sendMessage(messages)
+    }
+  }
+
+  private checkGoldData = async (
+    goldData: CurrencyData,
+    slackBuilder: SlackMessageBuilder
+  ) => {
+    const profit = await calculatGoldProfit(goldData.currency, goldData.buying)
+    if (profit > 0) {
+      slackBuilder.addProfitData(goldData, profit)
     }
   }
 
@@ -33,7 +45,10 @@ export default class NotificationService {
     const percent = (100 * (oldValue - currencyData.selling)) / oldValue
 
     const threshold = +(process.env.CURRENCY_THRESHOLD || 101)
-    if (percent >= threshold || currencyData.selling <= currencyData.sellingThreshold) {
+    if (
+      percent >= threshold ||
+      currencyData.selling <= currencyData.sellingThreshold
+    ) {
       slackBuilder.addCurrencyData(currencyData)
       fileStorage.storeValue(path, currencyData.selling)
     }
