@@ -11,8 +11,16 @@ export const calculatGoldProfit = async (
   if (currentData === '') return 0
   const pricePurchased = currentData.pricePurchased
   const goldBahtPurchased = currentData.goldBahtPurchased
-  const currentValue = currentRate * goldBahtPurchased
-  return currentValue - pricePurchased
+  const latestHighestPrice = currentData.latestHighestPrice ?? 0
+  const latestProfit = currentData.latestProfit ?? 0
+  const profit = +(currentRate * goldBahtPurchased - pricePurchased).toFixed(5)
+  if (currentRate > latestHighestPrice || profit > latestProfit) {
+    currentData.latestHighestPrice = currentRate
+    currentData.latestProfit = profit
+    await fileStorage.storeObject(currentDataPath, currentData)
+    return profit
+  }
+  return -1
 }
 
 const getFilePathForCurrency = (currency: string) => {

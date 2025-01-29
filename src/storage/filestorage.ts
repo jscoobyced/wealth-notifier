@@ -3,7 +3,11 @@ import { PurchasedGoldData } from '../model'
 
 export default class FileStorage {
   storeValue = async (path: string, value: number) => {
-    await this.store(getSafePath(path), value)
+    await this.store(getSafePath(path), `${value}`)
+  }
+
+  storeObject = async (path: string, value: object) => {
+    await this.store(getSafePath(path), JSON.stringify(value))
   }
 
   retrieveValue = async (path: string) => {
@@ -22,7 +26,7 @@ export default class FileStorage {
     return JSON.parse(value) as unknown as PurchasedGoldData
   }
 
-  private store = async (safePath: string, value: number) => {
+  private store = async (safePath: string, value: string) => {
     await fs.promises.writeFile(safePath, `${value}`)
   }
 }

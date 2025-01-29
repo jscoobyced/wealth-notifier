@@ -19,7 +19,6 @@ export default class CurrencyService {
       })
     }
 
-
     const auroraMessage = await this.checkAurora()
     if (auroraMessage) {
       messages.push(auroraMessage)

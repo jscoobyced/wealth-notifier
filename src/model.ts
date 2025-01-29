@@ -77,6 +77,8 @@ export type YlgGoldData = {
 export type PurchasedGoldData = {
   pricePurchased: number
   goldBahtPurchased: number
+  latestHighestPrice?: number
+  latestProfit?: number
 }
 
 export const UpwardsTrend = ':chart_with_upwards_trend:'

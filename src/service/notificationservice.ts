@@ -15,7 +15,6 @@ export default class NotificationService {
     const messages = slackBuilder.build()
 
     if (messages) {
-      console.log(JSON.stringify(messages))
       const slackService = new SlackService()
       await slackService.sendMessage(messages)
     }
