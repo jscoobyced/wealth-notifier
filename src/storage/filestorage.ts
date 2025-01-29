@@ -14,6 +14,7 @@ export default class FileStorage {
         goldBahtPurchased: 0,
         latestHighestPrice: 0,
         latestProfit: 0,
+        latestLowestPrice: Infinity,
       }
     const read = await fs.promises.readFile(safePath)
     const value = Buffer.from(read).toString()

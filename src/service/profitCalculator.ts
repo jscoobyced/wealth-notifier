@@ -39,7 +39,16 @@ export const shouldBuyGold = async (
       100,
     2,
   )
-  return percentDecreased > Number(process.env.GOLD_THRESHOLD ?? '100')
+  const latestLowestPrice = currentData.latestLowestPrice ?? Infinity
+  if (
+    percentDecreased > Number(process.env.GOLD_THRESHOLD ?? '100') &&
+    currentRate < latestLowestPrice
+  ) {
+    currentData.latestLowestPrice = currentRate
+    await fileStorage.storeObject(currentDataPath, currentData)
+    return true
+  }
+  return false
 }
 
 const getFilePathForCurrency = (currency: string) => {

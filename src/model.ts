@@ -22,7 +22,6 @@ export interface CurrencyData {
   buying: number
   currency: string
   provider: string
-  sellingThreshold: number
 }
 
 export interface IconProvider {
@@ -45,6 +44,7 @@ export interface PurchasedGoldData {
   goldBahtPurchased: number
   latestHighestPrice: number
   latestProfit: number
+  latestLowestPrice?: number
 }
 
 export const PriceUpdateIcon = 'part_alternation_mark'
