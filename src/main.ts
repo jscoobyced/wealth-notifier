@@ -1,16 +1,12 @@
-import CurrencyService from './service/currencyservice'
-import NotificationService from './service/notificationservice'
+import { checkGoldPrice } from './service/currencyservice'
+import { notifyCurrencyChange } from './service/notificationservice'
 
 export const run = async () => {
   console.log(
     new Date().toISOString().replace('T', ' ').substring(0, 19),
-    'Checking gold price.'
+    'Checking gold price.',
   )
-  const currencyService = new CurrencyService()
-  const currencyData = await currencyService.run()
+  const currencyData = await checkGoldPrice()
 
-  if (currencyData) {
-    const notificationService = new NotificationService()
-    await notificationService.run(currencyData)
-  }
+  await notifyCurrencyChange(currencyData)
 }

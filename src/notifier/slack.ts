@@ -1,7 +1,7 @@
 import { SlackMessageWithHeader, SlackRichTextElement } from '../model'
 
 export default class SlackService {
-  private SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || false
+  private SLACK_WEBHOOK = process.env.SLACK_WEBHOOK ?? false
 
   sendMessage = async (message: SlackMessageWithHeader) => {
     if (!this.SLACK_WEBHOOK) return

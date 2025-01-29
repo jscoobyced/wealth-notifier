@@ -2,19 +2,22 @@ import FileStorage, { getSafePath } from '../storage/filestorage'
 
 const fileStorage = new FileStorage()
 
+const PROFIT_PRECISION = 2
+
 export const calculatGoldProfit = async (
   currencySource: string,
-  currentRate: number
+  currentRate: number,
 ) => {
   const currentDataPath = getFilePathForCurrency(currencySource)
   const currentData = await fileStorage.retrieveGoldValue(currentDataPath)
-  if (currentData === '') return 0
-  const pricePurchased = currentData.pricePurchased
-  const goldBahtPurchased = currentData.goldBahtPurchased
-  const latestHighestPrice = currentData.latestHighestPrice ?? 0
-  const latestProfit = currentData.latestProfit ?? 0
-  const profit = +(currentRate * goldBahtPurchased - pricePurchased).toFixed(5)
-  if (currentRate > latestHighestPrice || profit > latestProfit) {
+  const profit = getFixedDecimal(
+    currentRate * currentData.goldBahtPurchased - currentData.pricePurchased,
+    PROFIT_PRECISION,
+  )
+  if (
+    currentRate > currentData.latestHighestPrice ||
+    profit > currentData.latestProfit
+  ) {
     currentData.latestHighestPrice = currentRate
     currentData.latestProfit = profit
     await fileStorage.storeObject(currentDataPath, currentData)
@@ -24,7 +27,11 @@ export const calculatGoldProfit = async (
 }
 
 const getFilePathForCurrency = (currency: string) => {
-  const path = process.env.STORAGE_PATH || '/tmp'
+  const path = process.env.STORAGE_PATH ?? '/tmp'
   const file = getSafePath(currency)
   return `${path}/${file}.json`
+}
+
+const getFixedDecimal = (value: number, decimalPlaces: number): number => {
+  return parseFloat(value.toFixed(decimalPlaces))
 }

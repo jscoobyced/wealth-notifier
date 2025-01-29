@@ -1,8 +1,8 @@
 import { CurrencyData, Icons, YlgGoldData } from '../model'
 
 export default class YlgBullion {
-  private YLGBULLION_URL = process.env.YLGBULLION_URL || false
-  private GOLD_99_THRESHOLD = process.env.GOLD_99_THRESHOLD || 0
+  private YLGBULLION_URL = process.env.YLGBULLION_URL ?? false
+  private GOLD_99_THRESHOLD = process.env.GOLD_99_THRESHOLD ?? 0
 
   fetchCurrentPrice = async () => {
     if (!this.YLGBULLION_URL) return false

@@ -1,15 +1,15 @@
-export type IconWithTextContent = {
+export interface IconWithTextContent {
   icon?: string
   text: string
 }
 
-export type SlackRichTextElement = {
+export interface SlackRichTextElement {
   type: string
   name?: string
   text?: string
 }
 
-export type SlackMessageWithHeader = {
+export interface SlackMessageWithHeader {
   header: {
     icon: string
     messsage: string
@@ -17,27 +17,7 @@ export type SlackMessageWithHeader = {
   content: IconWithTextContent[]
 }
 
-export type MarketDataRequest = {
-  ratio: number
-  currency: string
-}
-
-export type MarketDataResponse = {
-  endpoint: string
-  quotes: [
-    {
-      ask: number
-      base_currency: string
-      bid: number
-      mid: number
-      quote_currency: string
-    }
-  ]
-  requested_time: string
-  timestamp: number
-}
-
-export type CurrencyData = {
+export interface CurrencyData {
   selling: number
   buying: number
   currency: string
@@ -46,7 +26,7 @@ export type CurrencyData = {
   sellingThreshold: number
 }
 
-export type IconProvider = {
+export interface IconProvider {
   slack?: string
 }
 
@@ -63,7 +43,7 @@ export const Icons = {
   coin: CoinIcon,
 }
 
-export type YlgGoldData = {
+export interface YlgGoldData {
   bar96: {
     tin: number
     tout: number
@@ -74,11 +54,11 @@ export type YlgGoldData = {
   }
 }
 
-export type PurchasedGoldData = {
+export interface PurchasedGoldData {
   pricePurchased: number
   goldBahtPurchased: number
-  latestHighestPrice?: number
-  latestProfit?: number
+  latestHighestPrice: number
+  latestProfit: number
 }
 
 export const UpwardsTrend = ':chart_with_upwards_trend:'
