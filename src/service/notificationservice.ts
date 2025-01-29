@@ -1,7 +1,7 @@
 import { CurrencyData } from '../model'
 import SlackService from '../notifier/slack'
 import SlackMessageBuilder from '../notifier/slackbuilder'
-import { calculatGoldProfit } from './profitCalculator'
+import { calculatGoldProfit, shouldBuyGold } from './profitCalculator'
 
 export const notifyCurrencyChange = async (currencyData: CurrencyData[]) => {
   const slackBuilder = new SlackMessageBuilder()
@@ -20,10 +20,14 @@ export const notifyCurrencyChange = async (currencyData: CurrencyData[]) => {
 
 const checkGoldData = async (
   goldData: CurrencyData,
-  slackBuilder: SlackMessageBuilder
+  slackBuilder: SlackMessageBuilder,
 ) => {
   const profit = await calculatGoldProfit(goldData.currency, goldData.buying)
   if (profit > 0) {
     slackBuilder.addProfitData(goldData, profit)
+  }
+  const shouldBuy = await shouldBuyGold(goldData.currency, goldData.buying)
+  if (shouldBuy) {
+    slackBuilder.addShouldBuyData(goldData)
   }
 }

@@ -22,25 +22,11 @@ export interface CurrencyData {
   buying: number
   currency: string
   provider: string
-  icon: IconProvider
   sellingThreshold: number
 }
 
 export interface IconProvider {
   slack?: string
-}
-
-export const GoldIcon: IconProvider = {
-  slack: 'part_alternation_mark',
-}
-
-export const CoinIcon: IconProvider = {
-  slack: 'coin',
-}
-
-export const Icons = {
-  gold: GoldIcon,
-  coin: CoinIcon,
 }
 
 export interface YlgGoldData {
@@ -61,7 +47,9 @@ export interface PurchasedGoldData {
   latestProfit: number
 }
 
-export const UpwardsTrend = ':chart_with_upwards_trend:'
-export const DownwardsTrend = ':chart_with_downwards_trend:'
+export const PriceUpdateIcon = 'part_alternation_mark'
+export const UpwardsTrendIcon = 'chart_with_upwards_trend'
+export const DownwardsTrendIcon = 'chart_with_downwards_trend'
+export const MoneyBagIcon = 'moneybag'
 export const GRAM_PER_BAHT = 15.244
 export const OUNCE_TO_GRAM = 31.1041

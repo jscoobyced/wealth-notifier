@@ -1,8 +1,10 @@
 import {
   CurrencyData,
   IconWithTextContent,
+  MoneyBagIcon,
+  PriceUpdateIcon,
   SlackMessageWithHeader,
-  UpwardsTrend,
+  UpwardsTrendIcon,
 } from '../model'
 
 export default class SlackMessageBuilder {
@@ -12,20 +14,20 @@ export default class SlackMessageBuilder {
     currency: 'THB',
   })
 
-  addCurrencyData = (currencyData: CurrencyData) => {
+  addProfitData = (goldData: CurrencyData, profit: number) => {
     this.slackContent.push({
-      icon: currencyData.icon.slack,
-      text: `The ${currencyData.provider} selling price for ${
-        currencyData.currency
-      } is ${this.thaiBaht.format(currencyData.selling)}.`,
+      icon: UpwardsTrendIcon,
+      text: `The ${goldData.provider} profit for gold is ${this.thaiBaht.format(
+        profit,
+      )}.`,
     })
   }
 
-  addProfitData = (goldData: CurrencyData, profit: number) => {
+  addShouldBuyData = (goldData: CurrencyData) => {
     this.slackContent.push({
-      icon: goldData.icon.slack,
-      text: `The ${goldData.provider} profit for gold is ${this.thaiBaht.format(
-        profit
+      icon: MoneyBagIcon,
+      text: `Buy now! The price of ${goldData.provider} gold is ${this.thaiBaht.format(
+        goldData.buying,
       )}.`,
     })
   }
@@ -34,7 +36,7 @@ export default class SlackMessageBuilder {
     if (this.slackContent.length > 0) {
       const message: SlackMessageWithHeader = {
         header: {
-          icon: UpwardsTrend,
+          icon: `:${PriceUpdateIcon}:`,
           messsage: `Price update`,
         },
         content: this.slackContent,

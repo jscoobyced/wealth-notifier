@@ -1,4 +1,4 @@
-import { CurrencyData, Icons, YlgGoldData } from '../model'
+import { CurrencyData, YlgGoldData } from '../model'
 
 export default class YlgBullion {
   private YLGBULLION_URL = process.env.YLGBULLION_URL ?? false
@@ -18,7 +18,6 @@ export default class YlgBullion {
       buying: 0,
       currency: 'gold-ylg',
       provider: 'Ylg Bullion',
-      icon: Icons.gold,
       sellingThreshold: +this.GOLD_99_THRESHOLD,
     }
 

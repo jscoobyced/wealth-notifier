@@ -26,6 +26,22 @@ export const calculatGoldProfit = async (
   return -1
 }
 
+export const shouldBuyGold = async (
+  currencySource: string,
+  currentRate: number,
+) => {
+  const currentDataPath = getFilePathForCurrency(currencySource)
+  const currentData = await fileStorage.retrieveGoldValue(currentDataPath)
+  const percentDecreased = -getFixedDecimal(
+    ((currentRate -
+      currentData.pricePurchased / currentData.goldBahtPurchased) /
+      currentRate) *
+      100,
+    2,
+  )
+  return percentDecreased > Number(process.env.GOLD_THRESHOLD ?? '100')
+}
+
 const getFilePathForCurrency = (currency: string) => {
   const path = process.env.STORAGE_PATH ?? '/tmp'
   const file = getSafePath(currency)

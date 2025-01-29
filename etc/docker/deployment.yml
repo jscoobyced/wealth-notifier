@@ -50,32 +50,15 @@ spec:
               value: production
             - name: STORAGE_PATH
               value: /data
-            - name: CURRENCY_THRESHOLD
-              value: "3.93"
-            - name: GOLD_99_THRESHOLD
-              value: "40000"
+            - name: YLGBULLION_URL
+              value: https://register.ylgbullion.co.th/api/price/gold
+            - name: GOLD_THRESHOLD
+              value: 2.5
             - name: SLACK_WEBHOOK
               valueFrom:
                 secretKeyRef:
                   name: wl-secret
                   key: slack_webhook
-            - name: MARKETDATA_API_URL
-              valueFrom:
-                secretKeyRef:
-                  name: wl-secret
-                  key: market_data_api_url
-            - name: MARKETDATA_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: wl-secret
-                  key: market_data_api_key
-            - name: YLGBULLION_URL
-              value: https://register.ylgbullion.co.th/api/price/gold
-            - name: AURORA_URL
-              valueFrom:
-                secretKeyRef:
-                  name: wl-secret
-                  key: aurora_url
           volumeMounts:
             - name: wealth-notifier-persistent-storage
               mountPath: /data
