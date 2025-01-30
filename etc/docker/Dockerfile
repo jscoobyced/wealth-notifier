@@ -24,7 +24,7 @@ RUN yarn --cwd $APPDIR/build build
 
 FROM base AS prod
 
-COPY --from=build $APPDIR/build/node_modules/ $APPDIR/bin/node_modules/
+COPY --from=build $APPDIR/build/node_modules/ $APPDIR/dist/node_modules/
 COPY --from=build $APPDIR/build/dist $APPDIR/dist/
 COPY --from=build $APPDIR/build/package.json $APPDIR/
 

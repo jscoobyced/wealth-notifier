@@ -6,7 +6,6 @@
   "repository": "https://github.com/jscoobyced/wealth-notifier",
   "author": "Cédric Rochefolle",
   "license": "MIT",
-  "type": "module",
   "scripts": {
     "build": "tsc --outDir dist ./src/index.ts",
     "dev": "tsx --env-file=.env.local ./src/index.ts",

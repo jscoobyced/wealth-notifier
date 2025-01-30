@@ -53,7 +53,7 @@ spec:
             - name: YLGBULLION_URL
               value: https://register.ylgbullion.co.th/api/price/gold
             - name: GOLD_THRESHOLD
-              value: 2.5
+              value: "2.5"
             - name: SLACK_WEBHOOK
               valueFrom:
                 secretKeyRef:
