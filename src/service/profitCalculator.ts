@@ -8,6 +8,9 @@ export const calculatGoldProfit = async (
   currencySource: string,
   currentRate: number,
 ) => {
+  if (currentRate <= 0) {
+    return -1
+  }
   const currentDataPath = getFilePathForCurrency(currencySource)
   const currentData = await fileStorage.retrieveGoldValue(currentDataPath)
   const profit = getFixedDecimal(
@@ -30,6 +33,9 @@ export const shouldBuyGold = async (
   currencySource: string,
   currentRate: number,
 ) => {
+  if (currentRate <= 0) {
+    return false
+  }
   const currentDataPath = getFilePathForCurrency(currencySource)
   const currentData = await fileStorage.retrieveGoldValue(currentDataPath)
   const percentDecreased = -getFixedDecimal(
