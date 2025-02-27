@@ -26,7 +26,7 @@ const checkGoldData = async (
   if (profit > 0) {
     slackBuilder.addProfitData(goldData, profit)
   }
-  const shouldBuy = await shouldBuyGold(goldData.currency, goldData.buying)
+  const shouldBuy = await shouldBuyGold(goldData.currency, goldData.selling)
   if (shouldBuy) {
     slackBuilder.addShouldBuyData(goldData)
   }
